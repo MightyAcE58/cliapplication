@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 
@@ -20,10 +23,14 @@ func main() {
 
 		fmt.Println("Please enter your first name")
 		fmt.Scan(&firstName)
-		fmt.Println("Please enter your first name")
+		fmt.Println("Please enter your last name")
 		fmt.Scan(&lastName)
 		fmt.Println("Please enter number of tickets you would like to buy")
 		fmt.Scan(&userTickets)
+		if userTickets > remainingTickets {
+			fmt.Println("Sorry we only have ", remainingTickets, " tickets left")
+			break
+		}
 		fmt.Println("Please enter your email")
 		fmt.Scan(&email)
 		remainingTickets = remainingTickets - userTickets
@@ -35,6 +42,20 @@ func main() {
 		fmt.Println("Remaining tickets are ", remainingTickets)
 		fmt.Println("Booking details are ", booking)
 		//fmt.Printf("Arrey type %T\n", booking)
-	}
 
+		firstNames := []string{}
+		for _, b := range booking {
+			names := strings.Fields(b)
+			if len(names) > 0 {
+				firstNames = append(firstNames, names[0])
+
+			}
+			fmt.Printf("First names in bookings: %v\n", firstNames)
+			if remainingTickets == 0 {
+				fmt.Println("Sorry we are sold out!")
+				break
+			}
+			fmt.Println("------------------x----------------------\n")
+		}
+	}
 }
